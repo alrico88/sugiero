@@ -1,4 +1,4 @@
-import fetch from 'isomorphic-unfetch';
+import axios from 'axios';
 
 type SuggestResult = [
   string,
@@ -51,8 +51,8 @@ function getSuggestionType(typeStr: string): SuggestionType {
 export async function getSuggestions(partialSearch: string): Promise<Suggestion[]> {
   const url = getUrl(partialSearch);
 
-  const res = await fetch(url);
-  const suggestions = await res.json() as SuggestResult;
+  const res = await axios(url);
+  const suggestions = await res.data as SuggestResult;
 
   return suggestions[1].map((suggestion, index) => ({
     term: suggestion,
