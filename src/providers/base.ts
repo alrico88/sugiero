@@ -5,7 +5,8 @@ export interface Suggestion {
   type: SuggestionType
 }
 
-export interface BaseProvider {
-  getUrl(searchTerm: string): string
-  getSuggestions(partialSearch: string): Promise<Suggestion[]>
+export abstract class BaseProvider {
+  static getUrl: (searchTerm: string) => string;
+
+  static getSuggestions: (partialSearch: string) => Promise<Suggestion[]>;
 }

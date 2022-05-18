@@ -12,7 +12,7 @@ export type YahooSuggestResult = {
   }[]
 };
 
-export class Yahoo implements BaseProvider {
+export class Yahoo extends BaseProvider {
   /**
      * Type enforce the suggestion type
      *
@@ -24,22 +24,22 @@ export class Yahoo implements BaseProvider {
   }
 
   /**
-     * Gets the URL to query the autosuggest service
-     *
-     * @param {string} searchTerm
-     * @return {string}
-     */
-  getUrl(searchTerm: string): string {
+   * Gets the URL to query the autosuggest service
+   *
+   * @param {string} searchTerm
+   * @return {string}
+   */
+  static getUrl(searchTerm: string): string {
     return `https://search.yahoo.com/sugg/gossip/gossip-us-ura/?command=${searchTerm}&output=sd1&appid=yfp-t&nresults=10&pq=`;
   }
 
   /**
-     * Gets search suggestions for a partial search
-     *
-     * @param {string} partialSearch The term to search suggestions for
-     * @return {Promise<Suggestion[]>} The suggested searches
-     */
-  async getSuggestions(partialSearch: string): Promise<Suggestion[]> {
+   * Gets search suggestions for a partial search
+   *
+   * @param {string} partialSearch The term to search suggestions for
+   * @return {Promise<Suggestion[]>} The suggested searches
+   */
+  static async getSuggestions(partialSearch: string): Promise<Suggestion[]> {
     const url = this.getUrl(partialSearch);
 
     const res = await axios(url);
