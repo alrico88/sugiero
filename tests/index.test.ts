@@ -1,4 +1,5 @@
-import { getSuggestions } from '../src'
+import { getSuggestions } from '../src';
+
 describe('Test getting Google suggestions', () => {
   it('Should return suggestions for common search terms', async () => {
     const suggestions = await getSuggestions('hotels', 'Google');

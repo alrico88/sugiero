@@ -9,6 +9,7 @@ export class DuckDuckGo extends BaseProvider {
   /**
    * Gets the URL to query the autosuggest service
    *
+   * @static
    * @param {string} searchTerm
    * @return {string}
    */
@@ -19,6 +20,7 @@ export class DuckDuckGo extends BaseProvider {
   /**
    * Gets search suggestions for a partial search
    *
+   * @static
    * @param {string} partialSearch The term to search suggestions for
    * @return {Promise<Suggestion[]>} The suggested searches
    */

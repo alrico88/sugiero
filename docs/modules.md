@@ -4,19 +4,29 @@
 
 ## Table of contents
 
-### Interfaces
+### Type aliases
 
-- [Suggestion](interfaces/Suggestion.md)
+- [SearchProviderType](modules.md#searchprovidertype)
 
 ### Functions
 
 - [getSuggestions](modules.md#getsuggestions)
 
+## Type aliases
+
+### SearchProviderType
+
+Ƭ **SearchProviderType**: ``"Google"`` \| ``"Yahoo"`` \| ``"DuckDuckGo"`` \| ``"random"``
+
+#### Defined in
+
+[index.ts:6](https://github.com/alrico88/sugiero/blob/master/src/index.ts#L6)
+
 ## Functions
 
 ### getSuggestions
 
-▸ **getSuggestions**(`partialSearch`): `Promise`<[`Suggestion`](interfaces/Suggestion.md)[]\>
+▸ **getSuggestions**(`partialSearch`, `searchProvider?`): `Promise`<`Suggestion`[]\>
 
 Gets search suggestions for a partial search
 
@@ -24,16 +34,17 @@ Gets search suggestions for a partial search
 
 #### Parameters
 
-| Name | Type | Description |
-| :------ | :------ | :------ |
-| `partialSearch` | `string` | The term to search suggestions for |
+| Name | Type | Default value | Description |
+| :------ | :------ | :------ | :------ |
+| `partialSearch` | `string` | `undefined` | The term to search suggestions for |
+| `searchProvider` | [`SearchProviderType`](modules.md#searchprovidertype) | `'Google'` |  |
 
 #### Returns
 
-`Promise`<[`Suggestion`](interfaces/Suggestion.md)[]\>
+`Promise`<`Suggestion`[]\>
 
 The suggested searches
 
 #### Defined in
 
-index.ts:51
+[index.ts:16](https://github.com/alrico88/sugiero/blob/master/src/index.ts#L16)

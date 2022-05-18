@@ -34,6 +34,12 @@ const suggestions = await getSuggestions('hotels');
 // suggestions will be an array of {term, type} objects
 ```
 
+You can choose between multiple providers by passing their name as second argument. If none is provided, Google will be used.
+
+```javascript
+const suggestions = await getSuggestions('hotels', 'Yahoo');
+```
+
 ## Documentation
 
 See [DOCS](./docs/modules.md)

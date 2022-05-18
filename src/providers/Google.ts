@@ -19,6 +19,7 @@ export class Google extends BaseProvider {
   /**
    * Type enforce the suggestion type
    *
+   * @static
    * @param {string} typeStr
    * @return {SuggestionType}
    */
@@ -29,6 +30,7 @@ export class Google extends BaseProvider {
   /**
    * Gets the URL to query the autosuggest service
    *
+   * @static
    * @param {string} searchTerm
    * @return {string}
    */
@@ -39,6 +41,7 @@ export class Google extends BaseProvider {
   /**
    * Gets search suggestions for a partial search
    *
+   * @static
    * @param {string} partialSearch The term to search suggestions for
    * @return {Promise<Suggestion[]>} The suggested searches
    */

@@ -14,11 +14,12 @@ export type YahooSuggestResult = {
 
 export class Yahoo extends BaseProvider {
   /**
-     * Type enforce the suggestion type
-     *
-     * @param {number} typeNum
-     * @return {SuggestionType}
-     */
+   * Type enforce the suggestion type
+   *
+   * @static
+   * @param {number} typeNum
+   * @return {SuggestionType}
+   */
   static getSuggestionType(typeNum: number): SuggestionType {
     return typeNum === 6 ? 'QUERY' : 'NAVIGATION';
   }
@@ -26,6 +27,7 @@ export class Yahoo extends BaseProvider {
   /**
    * Gets the URL to query the autosuggest service
    *
+   * @static
    * @param {string} searchTerm
    * @return {string}
    */
@@ -36,6 +38,7 @@ export class Yahoo extends BaseProvider {
   /**
    * Gets search suggestions for a partial search
    *
+   * @static
    * @param {string} partialSearch The term to search suggestions for
    * @return {Promise<Suggestion[]>} The suggested searches
    */
