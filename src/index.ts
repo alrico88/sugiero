@@ -1,61 +1,32 @@
-import axios from 'axios';
+import { Suggestion } from './providers/base';
+import { DuckDuckGo } from './providers/DuckDuckGo';
+import { Google } from './providers/Google';
+import { Yahoo } from './providers/Yahoo';
 
-type SuggestResult = [
-  string,
-  string[],
-  [],
-  string[],
-  {
-    'google:clientdata': { 'bpc':boolean, 'tlw':boolean },
-    'google:suggestrelevance': number[],
-    'google:suggestsubtypes': number[][],
-    'google:suggesttype': string[],
-    'google:verbatimrelevance': number
-  },
-];
-
-type SuggestionType = 'QUERY' | 'NAVIGATION';
-
-export interface Suggestion {
-  term: string,
-  type: SuggestionType
-}
-
-/**
- * Gets the URL to query the autosuggest service
- *
- * @param {string} searchTerm
- * @return {string}
- */
-function getUrl(searchTerm: string): string {
-  return `http://suggestqueries.google.com/complete/search?client=chrome&q=${searchTerm}`;
-}
-
-/**
- * Type enforce the suggestion type
- *
- * @param {string} typeStr
- * @return {SuggestionType}
- */
-function getSuggestionType(typeStr: string): SuggestionType {
-  return typeStr === 'QUERY' ? 'QUERY' : 'NAVIGATION';
-}
+export type SearchProviderType = 'Google' | 'Yahoo' | 'DuckDuckGo' | 'random';
 
 /**
  * Gets search suggestions for a partial search
  *
  * @export
  * @param {string} partialSearch The term to search suggestions for
+ * @param {SearchProviderType} searchProvider
  * @return {Promise<Suggestion[]>} The suggested searches
  */
-export async function getSuggestions(partialSearch: string): Promise<Suggestion[]> {
-  const url = getUrl(partialSearch);
+export async function getSuggestions(partialSearch: string, searchProvider: SearchProviderType = 'Google'): Promise<Suggestion[]> {
+  let provider = searchProvider;
 
-  const res = await axios(url);
-  const suggestions = await res.data as SuggestResult;
+  if (provider === 'random') {
+    const providers = ['Google', 'Yahoo', 'DuckDuckGo'];
+    provider = providers[Math.floor(Math.random() * providers.length)] as SearchProviderType;
+  }
 
-  return suggestions[1].map((suggestion, index) => ({
-    term: suggestion,
-    type: getSuggestionType(suggestions[4]['google:suggesttype'][index]),
-  }));
+  switch (provider) {
+    case 'DuckDuckGo':
+      return DuckDuckGo.getSuggestions(partialSearch);
+    case 'Yahoo':
+      return Yahoo.getSuggestions(partialSearch);
+    default:
+      return Google.getSuggestions(partialSearch);
+  }
 }
