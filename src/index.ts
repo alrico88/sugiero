@@ -10,7 +10,7 @@ export type SearchProviderType = 'Google' | 'Yahoo' | 'DuckDuckGo' | 'random';
  *
  * @export
  * @param {string} partialSearch The term to search suggestions for
- * @param {SearchEngine} searchProvider
+ * @param {SearchProviderType} searchProvider
  * @return {Promise<Suggestion[]>} The suggested searches
  */
 export async function getSuggestions(partialSearch: string, searchProvider: SearchProviderType = 'Google'): Promise<Suggestion[]> {
