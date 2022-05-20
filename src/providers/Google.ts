@@ -35,7 +35,7 @@ export class Google extends BaseProvider {
    * @return {string}
    */
   static getUrl(searchTerm: string): string {
-    return `http://suggestqueries.google.com/complete/search?client=chrome&q=${searchTerm}`;
+    return `https://suggestqueries.google.com/complete/search?client=chrome&q=${searchTerm}`;
   }
 
   /**

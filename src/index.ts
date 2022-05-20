@@ -3,7 +3,7 @@ import { DuckDuckGo } from './providers/DuckDuckGo';
 import { Google } from './providers/Google';
 import { Yahoo } from './providers/Yahoo';
 
-export type SearchProviderType = 'Google' | 'Yahoo' | 'DuckDuckGo' | 'random';
+export type SearchProviderType = 'DuckDuckGo' | 'Google' | 'Yahoo' | 'random';
 
 /**
  * Gets search suggestions for a partial search
@@ -17,7 +17,7 @@ export async function getSuggestions(partialSearch: string, searchProvider: Sear
   let provider = searchProvider;
 
   if (provider === 'random') {
-    const providers = ['Google', 'Yahoo', 'DuckDuckGo'];
+    const providers = ['DuckDuckGo', 'Google', 'Yahoo'];
     provider = providers[Math.floor(Math.random() * providers.length)] as SearchProviderType;
   }
 
