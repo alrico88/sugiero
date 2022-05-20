@@ -42,6 +42,20 @@ describe('Test getting DuckDuckGo suggestions', () => {
   });
 });
 
+describe('Test getting Qwant suggestions', () => {
+  it('Should return suggestions for common search terms', async () => {
+    const suggestions = await getSuggestions('hotels', 'Qwant');
+
+    expect(suggestions.length).toBeGreaterThan(0);
+  });
+
+  it('Should should not return suggestions for weird search terms', async () => {
+    const suggestions = await getSuggestions('saduqlkjasdku,ylkajsdkhasd', 'Qwant');
+
+    expect(suggestions.length).toBe(0);
+  });
+});
+
 describe('Test getting Yahoo suggestions', () => {
   it('Should return suggestions for common search terms', async () => {
     const suggestions = await getSuggestions('hotels', 'Yahoo');
