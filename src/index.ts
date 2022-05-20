@@ -1,9 +1,10 @@
 import { Suggestion } from './providers/base';
+import { Brave } from './providers/Brave';
 import { DuckDuckGo } from './providers/DuckDuckGo';
 import { Google } from './providers/Google';
 import { Yahoo } from './providers/Yahoo';
 
-export type SearchProviderType = 'DuckDuckGo' | 'Google' | 'Yahoo' | 'random';
+export type SearchProviderType = 'Brave' | 'DuckDuckGo' | 'Google' | 'Yahoo' | 'random';
 
 /**
  * Gets search suggestions for a partial search
@@ -17,11 +18,13 @@ export async function getSuggestions(partialSearch: string, searchProvider: Sear
   let provider = searchProvider;
 
   if (provider === 'random') {
-    const providers = ['DuckDuckGo', 'Google', 'Yahoo'];
+    const providers = ['Brave', 'DuckDuckGo', 'Google', 'Yahoo'];
     provider = providers[Math.floor(Math.random() * providers.length)] as SearchProviderType;
   }
 
   switch (provider) {
+    case 'Brave':
+      return Brave.getSuggestions(partialSearch)
     case 'DuckDuckGo':
       return DuckDuckGo.getSuggestions(partialSearch);
     case 'Yahoo':

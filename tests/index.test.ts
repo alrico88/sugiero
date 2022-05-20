@@ -14,6 +14,20 @@ describe('Test getting Google suggestions', () => {
   });
 });
 
+describe('Test getting Brave suggestions', () => {
+  it('Should return suggestions for common search terms', async () => {
+    const suggestions = await getSuggestions('hotels', 'Brave');
+
+    expect(suggestions.length).toBeGreaterThan(0);
+  });
+
+  it('Should should not return suggestions for weird search terms', async () => {
+    const suggestions = await getSuggestions('saduqlkjasdku,ylkajsdkhasd', 'Brave');
+
+    expect(suggestions.length).toBe(0);
+  });
+});
+
 describe('Test getting DuckDuckGo suggestions', () => {
   it('Should return suggestions for common search terms', async () => {
     const suggestions = await getSuggestions('hotels', 'DuckDuckGo');
