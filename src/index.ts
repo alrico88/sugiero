@@ -3,9 +3,10 @@ import { Brave } from './providers/Brave';
 import { DuckDuckGo } from './providers/DuckDuckGo';
 import { Google } from './providers/Google';
 import { Qwant } from './providers/Qwant';
+import { Startpage } from './providers/Startpage';
 import { Yahoo } from './providers/Yahoo';
 
-export type SearchProviderType = 'Brave' | 'DuckDuckGo' | 'Google' | 'Qwant' | 'Yahoo' | 'random';
+export type SearchProviderType = 'Brave' | 'DuckDuckGo' | 'Google' | 'Qwant' | 'Startpage' | 'Yahoo' | 'random';
 
 /**
  * Gets search suggestions for a partial search
@@ -19,7 +20,7 @@ export async function getSuggestions(partialSearch: string, searchProvider: Sear
   let provider = searchProvider;
 
   if (provider === 'random') {
-    const providers = ['Brave', 'DuckDuckGo', 'Google', 'Yahoo'];
+    const providers = ['Brave', 'DuckDuckGo', 'Google', 'Qwant', 'Startpage', 'Yahoo'];
     provider = providers[Math.floor(Math.random() * providers.length)] as SearchProviderType;
   }
 
@@ -30,6 +31,8 @@ export async function getSuggestions(partialSearch: string, searchProvider: Sear
       return DuckDuckGo.getSuggestions(partialSearch);
     case 'Qwant':
       return Qwant.getSuggestions(partialSearch);
+    case 'Startpage':
+      return Startpage.getSuggestions(partialSearch);
     case 'Yahoo':
       return Yahoo.getSuggestions(partialSearch);
     default:
