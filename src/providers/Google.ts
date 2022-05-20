@@ -53,7 +53,7 @@ export class Google extends BaseProvider {
 
     return suggestions[1].map((suggestion, index) => ({
       term: suggestion,
-      type: Google.getSuggestionType(suggestions[4]['google:suggesttype'][index]),
+      type: this.getSuggestionType(suggestions[4]['google:suggesttype'][index]),
     }));
   }
 }

@@ -98,6 +98,20 @@ describe('Test getting Yahoo suggestions', () => {
   });
 });
 
+describe('Test getting YouTube suggestions', () => {
+  it('Should return suggestions for common search terms', async () => {
+    const suggestions = await getSuggestions('hotels', 'YouTube');
+
+    expect(suggestions.length).toBeGreaterThan(0);
+  });
+
+  it('Should should not return suggestions for weird search terms', async () => {
+    const suggestions = await getSuggestions('saduqlkjasdku,ylkajsdkhasd', 'YouTube');
+
+    expect(suggestions.length).toBe(0);
+  });
+});
+
 describe('Test getting random suggestions', () => {
   it('Should return suggestions for common search terms', async () => {
     const suggestions = await getSuggestions('hotels', 'random');

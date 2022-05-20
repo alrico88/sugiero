@@ -6,8 +6,9 @@ import { Qwant } from './providers/Qwant';
 import { Startpage } from './providers/Startpage';
 import { Swisscows } from './providers/Swisscows';
 import { Yahoo } from './providers/Yahoo';
+import { YouTube } from './providers/YouTube';
 
-export type SearchProviderType = 'Brave' | 'DuckDuckGo' | 'Google' | 'Qwant' | 'Startpage' | 'Swisscows' | 'Yahoo' | 'random';
+export type SearchProviderType = 'Brave' | 'DuckDuckGo' | 'Google' | 'Qwant' | 'Startpage' | 'Swisscows' | 'Yahoo' | 'YouTube' | 'random';
 
 /**
  * Gets search suggestions for a partial search
@@ -21,7 +22,7 @@ export async function getSuggestions(partialSearch: string, searchProvider: Sear
   let provider = searchProvider;
 
   if (provider === 'random') {
-    const providers = ['Brave', 'DuckDuckGo', 'Google', 'Qwant', 'Startpage', 'Swisscows', 'Yahoo'];
+    const providers = ['Brave', 'DuckDuckGo', 'Google', 'Qwant', 'Startpage', 'Swisscows', 'Yahoo', 'YouTube'];
     provider = providers[Math.floor(Math.random() * providers.length)] as SearchProviderType;
   }
 
@@ -38,6 +39,8 @@ export async function getSuggestions(partialSearch: string, searchProvider: Sear
       return Swisscows.getSuggestions(partialSearch);
     case 'Yahoo':
       return Yahoo.getSuggestions(partialSearch);
+    case 'YouTube':
+      return YouTube.getSuggestions(partialSearch);
     default:
       return Google.getSuggestions(partialSearch);
   }
