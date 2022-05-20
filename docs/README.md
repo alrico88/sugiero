@@ -42,6 +42,18 @@ You can choose between multiple providers by passing their name as second argume
 const suggestions = await getSuggestions('hotels', 'Yahoo');
 ```
 
+Available search providers are:
+
+- Brave
+- DuckDuckGo
+- Google
+- Qwant
+- Startpage
+- Swisscows
+- Yahoo
+- YouTube
+- random (chooses a random provider between those available)
+
 ## Documentation
 
 See [DOCS](./docs/modules.md)
