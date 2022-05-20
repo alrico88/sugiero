@@ -20,7 +20,7 @@
 
 #### Defined in
 
-[index.ts:11](https://github.com/ChunkyProgrammer/sugiero/blob/master/src/index.ts#L11)
+[index.ts:11](https://github.com/alrico88/sugiero/blob/master/src/index.ts#L11)
 
 ## Functions
 
@@ -47,4 +47,4 @@ The suggested searches
 
 #### Defined in
 
-[index.ts:21](https://github.com/ChunkyProgrammer/sugiero/blob/master/src/index.ts#L21)
+[index.ts:21](https://github.com/alrico88/sugiero/blob/master/src/index.ts#L21)
