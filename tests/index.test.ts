@@ -70,6 +70,20 @@ describe('Test getting Startpage suggestions', () => {
   });
 });
 
+describe('Test getting Swisscows suggestions', () => {
+  it('Should return suggestions for common search terms', async () => {
+    const suggestions = await getSuggestions('hotels', 'Swisscows');
+
+    expect(suggestions.length).toBeGreaterThan(0);
+  });
+
+  it('Should should not return suggestions for weird search terms', async () => {
+    const suggestions = await getSuggestions('saduqlkjasdku,ylkajsdkhasd', 'Swisscows');
+
+    expect(suggestions.length).toBe(0);
+  });
+});
+
 describe('Test getting Yahoo suggestions', () => {
   it('Should return suggestions for common search terms', async () => {
     const suggestions = await getSuggestions('hotels', 'Yahoo');
