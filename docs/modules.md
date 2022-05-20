@@ -16,11 +16,11 @@
 
 ### SearchProviderType
 
-Ƭ **SearchProviderType**: ``"Google"`` \| ``"Yahoo"`` \| ``"DuckDuckGo"`` \| ``"random"``
+Ƭ **SearchProviderType**: ``"Brave"`` \| ``"DuckDuckGo"`` \| ``"Google"`` \| ``"Qwant"`` \| ``"Startpage"`` \| ``"Swisscows"`` \| ``"Yahoo"`` \| ``"YouTube"`` \| ``"random"``
 
 #### Defined in
 
-[index.ts:6](https://github.com/alrico88/sugiero/blob/master/src/index.ts#L6)
+[index.ts:11](https://github.com/alrico88/sugiero/blob/master/src/index.ts#L11)
 
 ## Functions
 
@@ -47,4 +47,4 @@ The suggested searches
 
 #### Defined in
 
-[index.ts:16](https://github.com/alrico88/sugiero/blob/master/src/index.ts#L16)
+[index.ts:21](https://github.com/alrico88/sugiero/blob/master/src/index.ts#L21)
