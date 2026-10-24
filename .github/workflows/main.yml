@@ -2,27 +2,22 @@ name: CI
 on: [push]
 jobs:
   build:
-    name: Build, lint, and test on Node ${{ matrix.node }} and ${{ matrix.os }}
-
-    runs-on: ${{ matrix.os }}
+    name: Check, test and build on Node ${{ matrix.node }}
+    runs-on: ubuntu-latest
     strategy:
       matrix:
-        node: ['12.x', '14.x', '16.x']
-        os: [ubuntu-latest]
+        node: ['22', '24']
 
     steps:
-      - uses: actions/checkout@v2
-      - uses: pnpm/action-setup@646cdf48217256a3d0b80361c5a50727664284f2
+      - uses: actions/checkout@v4
+      - uses: voidzero-dev/setup-vp@v1
         with:
-          version: 6.10.0
-      - uses: actions/setup-node@v2
-        with:
-          node-version: '14'
-          cache: 'pnpm'
-      - run: pnpm install
-      - run: pnpm coverage
-      - run: pnpm build
+          node-version: ${{ matrix.node }}
+          cache: true
+      - run: vp check
+      - run: vp test run --coverage
+      - run: vp pack
       - name: Coveralls
-        uses: coverallsapp/github-action@master
+        uses: coverallsapp/github-action@v2
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}

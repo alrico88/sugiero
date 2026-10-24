@@ -1,8 +1,7 @@
-import axios from 'axios';
-import { BaseProvider, Suggestion } from './base';
+import { BaseProvider, fetchJson, type Suggestion } from './base';
 
 export type DuckDuckGoSuggestResult = {
-  'phrase': string
+  phrase: string;
 }[];
 
 export class DuckDuckGo extends BaseProvider {
@@ -14,7 +13,7 @@ export class DuckDuckGo extends BaseProvider {
    * @return {string}
    */
   static getUrl(searchTerm: string): string {
-    return `https://duckduckgo.com/ac/?q=${searchTerm}&kl=wt-wt`;
+    return `https://duckduckgo.com/ac/?q=${encodeURIComponent(searchTerm)}&kl=wt-wt`;
   }
 
   /**
@@ -27,8 +26,7 @@ export class DuckDuckGo extends BaseProvider {
   static async getSuggestions(partialSearch: string): Promise<Suggestion[]> {
     const url = this.getUrl(partialSearch);
 
-    const res = await axios(url);
-    const suggestions = await res.data as DuckDuckGoSuggestResult;
+    const suggestions = await fetchJson<DuckDuckGoSuggestResult>(url);
 
     return suggestions.map((suggestion) => ({
       term: suggestion.phrase,

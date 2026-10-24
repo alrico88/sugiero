@@ -1,12 +1,15 @@
-import axios from 'axios';
-import { BaseProvider, Suggestion } from './base';
+import { BaseProvider, fetchJson, type Suggestion } from './base';
 
-export type BraveSuggestResult = [
-  string,
-  string[],
-];
+export type AmazonSuggestResult = {
+  alias: string;
+  prefix: string;
+  suggestions: {
+    type: string;
+    value: string;
+  }[];
+};
 
-export class Brave extends BaseProvider {
+export class Amazon extends BaseProvider {
   /**
    * Gets the URL to query the autosuggest service
    *
@@ -15,7 +18,7 @@ export class Brave extends BaseProvider {
    * @return {string}
    */
   static getUrl(searchTerm: string): string {
-    return `https://search.brave.com/api/suggest?q=${searchTerm}`;
+    return `https://completion.amazon.com/api/2017/suggestions?mid=ATVPDKIKX0DER&alias=aps&prefix=${encodeURIComponent(searchTerm)}`;
   }
 
   /**
@@ -28,11 +31,10 @@ export class Brave extends BaseProvider {
   static async getSuggestions(partialSearch: string): Promise<Suggestion[]> {
     const url = this.getUrl(partialSearch);
 
-    const res = await axios(url);
-    const suggestions = await res.data as BraveSuggestResult;
+    const suggestions = await fetchJson<AmazonSuggestResult>(url);
 
-    return suggestions[1].map((suggestion) => ({
-      term: suggestion,
+    return suggestions.suggestions.map((suggestion) => ({
+      term: suggestion.value,
       type: 'QUERY',
     }));
   }

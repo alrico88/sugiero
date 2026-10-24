@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { BaseProvider, Suggestion } from './base';
+import { BaseProvider, fetchJson, type Suggestion } from './base';
 
 export type SwisscowsSuggestResult = string[];
 
@@ -12,7 +11,7 @@ export class Swisscows extends BaseProvider {
    * @return {string}
    */
   static getUrl(searchTerm: string): string {
-    return `https://swisscows.com/api/suggest?query=${searchTerm}&itemsCount=10`;
+    return `https://api.swisscows.com/suggest?query=${encodeURIComponent(searchTerm)}&itemsCount=10`;
   }
 
   /**
@@ -25,8 +24,7 @@ export class Swisscows extends BaseProvider {
   static async getSuggestions(partialSearch: string): Promise<Suggestion[]> {
     const url = this.getUrl(partialSearch);
 
-    const res = await axios(url);
-    const suggestions = await res.data as SwisscowsSuggestResult;
+    const suggestions = await fetchJson<SwisscowsSuggestResult>(url);
 
     return suggestions.map((suggestion) => ({
       term: suggestion,

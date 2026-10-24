@@ -1,15 +1,14 @@
-import axios from 'axios';
-import { BaseProvider, Suggestion } from './base';
+import { BaseProvider, fetchJson, type Suggestion } from './base';
 
 export type QwantSuggestResult = {
-  'status': string
-  'data': {
+  status: string;
+  data: {
     items: {
-      'value': string
-      'suggestType': number
-    }[]
-  },
-  'special': []
+      value: string;
+      suggestType: number;
+    }[];
+  };
+  special: [];
 };
 
 export class Qwant extends BaseProvider {
@@ -21,7 +20,7 @@ export class Qwant extends BaseProvider {
    * @return {string}
    */
   static getUrl(searchTerm: string): string {
-    return `https://api.qwant.com/v3/suggest?q=${searchTerm}&version=2`;
+    return `https://api.qwant.com/v3/suggest?q=${encodeURIComponent(searchTerm)}&version=2`;
   }
 
   /**
@@ -34,8 +33,8 @@ export class Qwant extends BaseProvider {
   static async getSuggestions(partialSearch: string): Promise<Suggestion[]> {
     const url = this.getUrl(partialSearch);
 
-    const res = await axios(url);
-    const suggestions = await res.data as QwantSuggestResult;
+    const suggestions = await fetchJson<QwantSuggestResult>(url);
+
     return suggestions.data.items.map((suggestion) => ({
       term: suggestion.value,
       type: 'QUERY',

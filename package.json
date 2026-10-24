@@ -2,32 +2,11 @@
   "name": "sugiero",
   "version": "2.1.0",
   "description": "Get search suggestions based on a partial search term",
-  "source": "src/index.ts",
-  "main": "./dist/index.js",
-  "module": "./dist/index.umd.js",
-  "typings": "./dist/index.d.ts",
-  "files": [
-    "src",
-    "dist"
-  ],
-  "scripts": {
-    "build": "microbundle",
-    "dev": "microbundle watch",
-    "test": "jest",
-    "lint": "eslint --cache --fix --ignore-path .gitignore --ext .ts,.js src",
-    "coverage": "jest --coverage && cat ./coverage/lcov.info",
-    "docs": "typedoc src/index.ts --readme README.md --gitRevision master",
-    "prepublish": "pnpm run build"
-  },
-  "sideEffects": false,
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/alrico88/sugiero"
-  },
   "keywords": [
-    "suggestions",
-    "search"
+    "search",
+    "suggestions"
   ],
+  "license": "MIT",
   "author": "Alberto Rico",
   "contributors": [
     {
@@ -35,23 +14,44 @@
       "url": "https://github.com/ChunkyProgrammer"
     }
   ],
-  "license": "MIT",
-  "devDependencies": {
-    "@types/jest": "^27.0.1",
-    "@typescript-eslint/eslint-plugin": "^4.31.1",
-    "@typescript-eslint/parser": "^4.31.1",
-    "eslint": "^7.32.0",
-    "eslint-config-airbnb-base": "^14.2.1",
-    "eslint-config-airbnb-typescript": "^14.0.0",
-    "eslint-plugin-import": "^2.24.2",
-    "jest": "^27.2.0",
-    "microbundle": "^0.13.3",
-    "ts-jest": "^27.0.5",
-    "tslib": "^2.3.1",
-    "typedoc": "^0.22.3",
-    "typedoc-plugin-markdown": "^3.11.0"
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alrico88/sugiero"
   },
-  "dependencies": {
-    "axios": "^0.24.0"
-  }
+  "files": [
+    "src",
+    "dist"
+  ],
+  "type": "module",
+  "sideEffects": false,
+  "main": "./dist/index.cjs",
+  "module": "./dist/index.mjs",
+  "types": "./dist/index.d.cts",
+  "exports": {
+    ".": {
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.cjs"
+    },
+    "./package.json": "./package.json"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test run",
+    "lint": "vp check --fix",
+    "coverage": "vp test run --coverage",
+    "prepublishOnly": "pnpm run build",
+    "test:live": "LIVE=1 vp test run tests/live.test.ts"
+  },
+  "devDependencies": {
+    "@stylistic/eslint-plugin": "^5.10.0",
+    "@types/node": "^26.6.5",
+    "@vitest/coverage-v8": "catalog:",
+    "typescript": "~7.0.2",
+    "vite-plus": "catalog:"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "packageManager": "pnpm@12.14.0"
 }

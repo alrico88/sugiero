@@ -1,5 +1,4 @@
-import axios from 'axios';
-import { SuggestionType, BaseProvider, Suggestion } from './base';
+import { BaseProvider, fetchJson, type Suggestion, type SuggestionType } from './base';
 
 export type GoogleSuggestResult = [
   string,
@@ -7,11 +6,11 @@ export type GoogleSuggestResult = [
   [],
   string[],
   {
-    'google:clientdata': { 'bpc': boolean, 'tlw': boolean },
-    'google:suggestrelevance': number[],
-    'google:suggestsubtypes': number[][],
-    'google:suggesttype': string[],
-    'google:verbatimrelevance': number
+    'google:clientdata': { bpc: boolean; tlw: boolean };
+    'google:suggestrelevance': number[];
+    'google:suggestsubtypes': number[][];
+    'google:suggesttype': string[];
+    'google:verbatimrelevance': number;
   },
 ];
 
@@ -35,7 +34,7 @@ export class Google extends BaseProvider {
    * @return {string}
    */
   static getUrl(searchTerm: string): string {
-    return `https://suggestqueries.google.com/complete/search?client=chrome&q=${searchTerm}`;
+    return `https://suggestqueries.google.com/complete/search?client=chrome&oe=utf-8&q=${encodeURIComponent(searchTerm)}`;
   }
 
   /**
@@ -48,8 +47,7 @@ export class Google extends BaseProvider {
   static async getSuggestions(partialSearch: string): Promise<Suggestion[]> {
     const url = this.getUrl(partialSearch);
 
-    const res = await axios(url);
-    const suggestions = await res.data as GoogleSuggestResult;
+    const suggestions = await fetchJson<GoogleSuggestResult>(url);
 
     return suggestions[1].map((suggestion, index) => ({
       term: suggestion,

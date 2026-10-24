@@ -1,15 +1,14 @@
-import axios from 'axios';
-import { SuggestionType, BaseProvider, Suggestion } from './base';
+import { BaseProvider, fetchJson, type Suggestion, type SuggestionType } from './base';
 
 export type YahooSuggestResult = {
-  q: string,
+  q: string;
   l: {
-    gprid: string
-  },
+    gprid: string;
+  };
   r: {
-    'k': string,
-    'm': number
-  }[]
+    k: string;
+    m: number;
+  }[];
 };
 
 export class Yahoo extends BaseProvider {
@@ -32,7 +31,7 @@ export class Yahoo extends BaseProvider {
    * @return {string}
    */
   static getUrl(searchTerm: string): string {
-    return `https://search.yahoo.com/sugg/gossip/gossip-us-ura/?command=${searchTerm}&output=sd1&appid=yfp-t&nresults=10&pq=`;
+    return `https://search.yahoo.com/sugg/gossip/gossip-us-ura/?command=${encodeURIComponent(searchTerm)}&output=sd1&appid=yfp-t&nresults=10&pq=`;
   }
 
   /**
@@ -45,8 +44,7 @@ export class Yahoo extends BaseProvider {
   static async getSuggestions(partialSearch: string): Promise<Suggestion[]> {
     const url = this.getUrl(partialSearch);
 
-    const res = await axios(url);
-    const suggestions = await res.data as YahooSuggestResult;
+    const suggestions = await fetchJson<YahooSuggestResult>(url);
 
     return suggestions.r.map((suggestion) => ({
       term: suggestion.k,
